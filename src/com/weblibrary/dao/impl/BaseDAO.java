@@ -155,6 +155,7 @@ public class BaseDAO<T> implements DAO <T> {
     public void batch(String sql, Object[]... params) {
         Connection connection = null;
         try {
+            System.out.println("长度:"+params.length);
             connection = DBUtil.getConnection();
             queryRunner.batch(connection,sql,params);
         }catch(Exception e){

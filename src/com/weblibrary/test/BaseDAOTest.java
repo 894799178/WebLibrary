@@ -49,7 +49,7 @@ public class BaseDAOTest {
     @Test
     public void testBatch(){
         String sql = "update book_table set title = ? where bookId = ?";
-        bookDAOImpl.batch(sql, new Object[]{"javaWeb",1},new Object[]{"javaWeb11",2});
+        bookDAOImpl.batch(sql, new Object[]{"javaWeb11",1},new Object[]{"javaWeb11",2});
     }
 
 }

@@ -17,12 +17,13 @@ public class TradeItemDAOImplTest {
         list.add(new TradeItem(0,10,1,1));
         list.add(new TradeItem(0,10,2,2));
         list.add(new TradeItem(0,10,2,2));
-
         tradeItemDAO.batchSave(list);
     }
 
     @Test
     public void getTradeItemWithTradeId() throws Exception {
+        System.out.println(tradeItemDAO.getTradeItemWithTradeId(2));
+
     }
 
 
