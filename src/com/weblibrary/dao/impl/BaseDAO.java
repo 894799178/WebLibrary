@@ -93,7 +93,6 @@ public class BaseDAO<T> implements DAO <T> {
         Connection connection = null;
         try {
             connection = DBUtil.getConnection();
-
             return queryRunner.query(connection,sql,new BeanHandler<>(clazz),args);
         }catch(Exception e){
             e.printStackTrace();

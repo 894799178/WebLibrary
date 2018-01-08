@@ -31,6 +31,8 @@ public class BookDAOImpl extends BaseDAO<Book> implements BookDAO {
     public Page<Book> getPage(CriteriaBook cb) {
         Page page =  new Page<Book>(cb.getPageNo());
         page.setTotalItemNumber(getToTalBookNumber(cb));
+        //校验pageNo的合法性
+        cb.setPageNo(page.getPageNo());
         page.setPageList(getPageList(cb,3));
         return page;
     }
@@ -43,8 +45,12 @@ public class BookDAOImpl extends BaseDAO<Book> implements BookDAO {
     @Override
     public long getToTalBookNumber(CriteriaBook cb) {
         String sql = "select count(*) from book_table where price >= ? and price <= ?";
-
-        return  getSingleVal(sql,cb.getMinPrice(),cb.getMaxPrice());
+        try {
+            return  getSingleVal(sql,cb.getMinPrice(),cb.getMaxPrice());
+        }catch (Exception e){
+            System.out.println("emmmmm应该是空指针异常");
+        }
+        return 0;
     }
 
     /**
@@ -70,7 +76,13 @@ public class BookDAOImpl extends BaseDAO<Book> implements BookDAO {
     @Override
     public int getStoreNumber(Integer id) {
         String sql = "select storeNumber from book_table where bookId=?";
-        return  getSingleVal(sql,id);
+
+        try {
+            return  getSingleVal(sql,id);
+        }catch (Exception e){
+            System.out.println("emmmmm应该是空指针异常");
+        }
+        return 0;
     }
 
     /**

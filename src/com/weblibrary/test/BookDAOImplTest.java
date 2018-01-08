@@ -20,17 +20,15 @@ public class BookDAOImplTest {
     @Test
     public void getPage() throws Exception {
         CriteriaBook cb = new CriteriaBook();
-        cb.setPageNo(1);
-        cb.setMinPrice(90);
-        cb.setMaxPrice(400);
+        cb.setPageNo(4);
+        cb.setMinPrice(200);
+        cb.setMinPrice(390);
         Page page =  bookDAO.getPage(cb);
         System.out.println("pageNo = "+page.getPageNo());
         System.out.println("TotalItemNumber = "+page.getTotalItemNumber());
         System.out.println("list ="+page.getPageList());
         System.out.println("pageNext="+page.getPageNext());
         System.out.println("PagePrev="+page.getPagePrev());
-
-
         System.out.println(page);
 
     }
@@ -54,7 +52,7 @@ public class BookDAOImplTest {
 
     @Test
     public void getStoreNumber() throws Exception {
-        System.out.println(bookDAO.getStoreNumber(4));
+        System.out.println(bookDAO.getStoreNumber(100));
     }
 
 

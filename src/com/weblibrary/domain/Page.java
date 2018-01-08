@@ -25,8 +25,7 @@ public class Page <T> {
      */
     public int getTotalPageNumber(){
         int totalPageNumber =(int)(totalItemNumber / pageSize);
-
-        if((totalPageNumber % pageSize) != 0){
+        if((totalItemNumber % pageSize) != 0){
             totalPageNumber++;
         }
         return totalPageNumber;

@@ -15,9 +15,8 @@ public class BaseDAOTest {
     BookDAOImpl bookDAOImpl = new BookDAOImpl();
     @Test
     public void testInsert(){
-
         String sql = "insert into book_table (author,title,price,publicShingDate,salesAmount,storeNumber,remark) values (?,?,?,?,?,?,?)";
-         long id =bookDAOImpl.insert(sql,"","并发实践",200.0,new Date(new java.util.Date().getTime()),6,10,"emmmmm");
+         long id =bookDAOImpl.insert(sql,"","算法4",390,new Date(new java.util.Date().getTime()),1,5,"emmmmm");
         System.out.println(id);
     }
     @Test
