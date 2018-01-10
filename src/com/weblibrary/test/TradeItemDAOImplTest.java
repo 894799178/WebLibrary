@@ -22,7 +22,7 @@ public class TradeItemDAOImplTest {
 
     @Test
     public void getTradeItemWithTradeId() throws Exception {
-        System.out.println(tradeItemDAO.getTradeItemWithTradeId(2));
+        System.out.println(tradeItemDAO.getTradeItemWithTradeId(1));
 
     }
 

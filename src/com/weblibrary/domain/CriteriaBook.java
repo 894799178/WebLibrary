@@ -5,6 +5,16 @@ public class CriteriaBook {
     private int maxPrice = Integer.MAX_VALUE;
     private int pageNo;
 
+
+    public CriteriaBook() {
+    }
+
+    public CriteriaBook(int minPrice, int maxPrice, int pageNo) {
+        this.minPrice = minPrice;
+        this.maxPrice = maxPrice;
+        this.pageNo = pageNo;
+    }
+
     public int getMinPrice() {
         return minPrice;
     }
