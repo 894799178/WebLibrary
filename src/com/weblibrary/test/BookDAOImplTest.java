@@ -37,8 +37,8 @@ public class BookDAOImplTest {
     public void getToTalBookNumber() throws Exception {
         CriteriaBook cb = new CriteriaBook();
         cb.setPageNo(2);
-
-        System.out.println(bookDAO.getToTalBookNumber(cb));
+        cb.setMinPrice(50);
+        cb.setMinPrice(100);
     }
 
     @Test

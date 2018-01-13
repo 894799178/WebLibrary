@@ -46,7 +46,7 @@ public class BookDAOImpl extends BaseDAO<Book> implements BookDAO {
     public long getToTalBookNumber(CriteriaBook cb) {
         String sql = "select count(*) from book_table where price >= ? and price <= ?";
         try {
-            return  getSingleVal(sql,cb.getMinPrice(),cb.getMaxPrice());
+            return getSingleVal(sql,cb.getMinPrice(),cb.getMaxPrice());
         }catch (Exception e){
             System.out.println("emmmmm应该是空指针异常");
         }
@@ -63,7 +63,6 @@ public class BookDAOImpl extends BaseDAO<Book> implements BookDAO {
     @Override
     public List<Book> getPageList(CriteriaBook cb, int pageSize) {
         String sql = "select bookId,author,title,price,publicShingDate,salesAmount,storeNumber,remark from book_table where price >= ? and price <= ? limit ?,?";
-
         return queryForList(sql,cb.getMinPrice(),cb.getMaxPrice(), pageSize*(cb.getPageNo()-1),pageSize);
     }
 
