@@ -5,7 +5,7 @@
   Time: 11:57
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"  pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
@@ -18,7 +18,6 @@
                 var href = this.href + "&" + serializeVal;
                 window.location.href = href;
                 return false;
-
             })
             $("input[name = 'submit']").click(function(){
                 var val = $("input[name = 'gotoNo']").val();
@@ -36,7 +35,6 @@
                     $("input[name = 'gotoNo']").val("");
                     val  = ${bookPage.pageNo}
                     alert("输入的页面不合法!");
-
                 }
                 var href = "bookServlet?pageNo="  + val+ "&"+ serializeVal;
                 window.location.href = href;
@@ -50,8 +48,18 @@
 <body>
 <input type = "hidden" name ="minPrice"  value="${param.minPrice}"/>
 <input type = "hidden" name ="maxPrice"  value="${param.maxPrice}"/>
-        <center><br><br>
-            <form action="bookServlet" method="post">
+
+        <center>
+            <c:if test="${param.title != null}">
+                您已经将${param.title}放入购物车中!
+                <br>
+                <br>
+            </c:if>
+            <c:if test="${!empty  sessionScope.ShoppingCart}">
+                您的购物车中有${sessionScope.ShoppingCart.bookNumber}本,<a href="cart.jsp?bookId=${book.bookId}">查看购物车</a>
+            </c:if>
+            <br><br>
+            <form action="bookServlet?method=getBooks" method="post">
                 price:
                 <input type = "text" size="1" name = "minPrice"/> -
                 <input type = "text" size="1" name = "maxPrice"/>
@@ -62,14 +70,13 @@
                 <c:forEach items = "${bookPage.pageList}" var="book">
                     <tr>
                         <td>
-                            <a href = "">${book.title}</a>
+                            <a href = "bookServlet?method=getBook&bookId=${book.bookId}&pageNo=${bookPage.pageNo}">${book.title}</a>
                             <br>
                               ${book.author}
                         </td>
                         <td>${book.price}</td>
-                        <td><a href="">加入购物车</a></td>
+                        <td><a href="bookServlet?method=addToCart&bookId=${book.bookId}&pageNo=${bookPage.pageNo}&title=${book.title}">加入购物车</a></td>
                     </tr>
-
                 </c:forEach>
             </table>
             <br><br>
@@ -78,20 +85,20 @@
             当前第${bookPage.pageNo}页
             &nbsp;&nbsp;
             <c:if test="${bookPage.hasPrev}">
-                <a href="bookServlet?pageNo=1">首页</a>
+                <a href="bookServlet?method=getBooks&pageNo=1">首页</a>
                 &nbsp;&nbsp;
-                <a href="bookServlet?pageNo=${bookPage.pagePrev}">上一页</a>
+                <a  href="bookServlet?method=getBooks&pageNo=${bookPage.pagePrev}">上一页</a>
             </c:if>
             &nbsp;&nbsp;
             <c:if test="${bookPage.hasNext}">
-                <a href="bookServlet?pageNo=${bookPage.pageNext}">下一页</a>
+                <a href="bookServlet?method=getBooks&pageNo=${bookPage.pageNext}">下一页</a>
                 &nbsp;&nbsp;
-                <a href="bookServlet?pageNo=${bookPage.totalPageNumber}">末页</a>
+                <a href="bookServlet?method=getBooks&pageNo=${bookPage.totalPageNumber}">末页</a>
             </c:if>
             &nbsp;&nbsp;
 
 
-            <form action="bookServlet" method="post">
+            <form action="bookServlet?method=getBooks" method="post">
                 <input type="text" name ="gotoNo">
                 <input type="submit" name = "submit" value="转到">
             </form>

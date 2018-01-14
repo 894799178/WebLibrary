@@ -2,10 +2,14 @@ package com.weblibrary.domain;
 
 import java.util.List;
 
+/**
+ * 该类封装了对于页面所需要显示的方法
+ * 主要用于商品在页面上的显示
+ * @param <T>
+ */
 public class Page <T> {
     //当前页数
     private int  pageNo;
-
     //配置当前页面显示的数据的最大个数
     private int pageSize = 3;
 

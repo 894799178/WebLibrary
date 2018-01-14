@@ -42,6 +42,7 @@ public class BaseDAO<T> implements DAO <T> {
 
         try {
             connection = DBUtil.getConnection();
+            //设置mysql的自增id 是可获取的
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             if(args != null){
                 for (int i=0;i < args.length;i++){
@@ -49,6 +50,7 @@ public class BaseDAO<T> implements DAO <T> {
                 }
             }
             preparedStatement.executeUpdate();
+            //获取插入到表中的时候,mysql自增的id
             resultSer = preparedStatement.getGeneratedKeys();
             if(resultSer.next()){
                 id = resultSer.getLong(1);
@@ -155,7 +157,6 @@ public class BaseDAO<T> implements DAO <T> {
     public void batch(String sql, Object[]... params) {
         Connection connection = null;
         try {
-            System.out.println("长度:"+params.length);
             connection = DBUtil.getConnection();
             queryRunner.batch(connection,sql,params);
         }catch(Exception e){

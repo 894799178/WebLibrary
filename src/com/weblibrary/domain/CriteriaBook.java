@@ -5,7 +5,10 @@ public class CriteriaBook {
     private int maxPrice = Integer.MAX_VALUE;
     private int pageNo;
 
-
+    /**
+     * 标准的书籍类, 用于条件查询.
+     * 封装了  3个成员 最小价格 最大价格 书的id编号
+     */
     public CriteriaBook() {
     }
 
@@ -22,7 +25,6 @@ public class CriteriaBook {
     public void setMinPrice(int minPrice) {
         this.minPrice = minPrice;
     }
-
     public int getMaxPrice() {
         return maxPrice;
     }

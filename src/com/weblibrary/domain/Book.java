@@ -3,6 +3,7 @@ package com.weblibrary.domain;
 import java.sql.Date;
 
 /*
+    数据库结构备忘
  * book_id  int(11) auto_increment primary key,
 	author varchar(255),
 	title varchar(255) not null,
@@ -21,10 +22,6 @@ public class Book {
     private int salesAmount;
     private int storeNumber;
     private String remark;
-
-
-
-
     public Book() {
     }
 
