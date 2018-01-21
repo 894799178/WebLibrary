@@ -29,4 +29,16 @@ public class BookService {
         }
         return false;
     }
+
+    public static void removeItenFromShoppingCart(ShoppingCart sc, int id) {
+        sc.removeItem(id);
+    }
+
+    public static void clear(ShoppingCart sc) {
+        sc.clear();
+    }
+
+    public static void updateItemQuantity(ShoppingCart sc, int id, int quantity) {
+        sc.updateItemQuantity(id,quantity);
+    }
 }

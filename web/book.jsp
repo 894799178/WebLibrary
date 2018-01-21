@@ -12,6 +12,7 @@
 
 </head>
 <body>
+        <jsp:include page="hidden.jsp"></jsp:include>
         <center>
             <br>
             <br>

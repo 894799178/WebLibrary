@@ -12,13 +12,7 @@
     <title>Title</title>
     <script type="text/javascript" src="scripts/jquery-3.2.1.js"></script>
     <script type="text/javascript">
-        $(function(){
-            $("a").click(function(){
-                var serializeVal = $(":hidden").serialize();
-                var href = this.href + "&" + serializeVal;
-                window.location.href = href;
-                return false;
-            })
+
             $("input[name = 'submit']").click(function(){
                 var val = $("input[name = 'gotoNo']").val();
                 var serializeVal = $(":hidden").serialize();
@@ -40,14 +34,11 @@
                 window.location.href = href;
                 return false;
             })
-
-        })
     </script>
 </head>
 
 <body>
-<input type = "hidden" name ="minPrice"  value="${param.minPrice}"/>
-<input type = "hidden" name ="maxPrice"  value="${param.maxPrice}"/>
+    <jsp:include page="hidden.jsp"></jsp:include>
 
         <center>
             <c:if test="${param.title != null}">
@@ -55,8 +46,8 @@
                 <br>
                 <br>
             </c:if>
-            <c:if test="${!empty  sessionScope.ShoppingCart}">
-                您的购物车中有${sessionScope.ShoppingCart.bookNumber}本,<a href="cart.jsp?bookId=${book.bookId}">查看购物车</a>
+            <c:if test="${!empty  sessionScope.ShoppingCart.books}">
+                您的购物车中有${sessionScope.ShoppingCart.bookNumber}本,<a href="cart.jsp?bookId=${param.bookId}&pageNo=${bookPage.pageNo}">查看购物车</a>
             </c:if>
             <br><br>
             <form action="bookServlet?method=getBooks" method="post">

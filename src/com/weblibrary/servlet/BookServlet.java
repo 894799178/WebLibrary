@@ -1,7 +1,7 @@
 package com.weblibrary.servlet;
 
 
-import com.sun.org.apache.xpath.internal.SourceTree;
+import com.google.gson.Gson;
 import com.weblibrary.domain.Book;
 import com.weblibrary.domain.CriteriaBook;
 import com.weblibrary.domain.Page;
@@ -14,8 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BookServlet extends HttpServlet {
     BookService bs = new BookService();
@@ -36,6 +37,51 @@ public class BookServlet extends HttpServlet {
 
         }
 
+
+    }
+
+    protected void toBooks(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        getBooks(req,resp);
+    }
+    protected void updateItemQuantity(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+            String idStr = req.getParameter("id");
+            String quantityStr = req.getParameter("quantity");
+            int id = -1;
+            int quantity = -1;
+            try{
+                id = Integer.parseInt(idStr);
+                quantity = Integer.parseInt(quantityStr);
+            }catch(Exception e){}
+            ShoppingCart sc = BookStoreWebUtil.getShoppingCart(req);
+            if(id >0 && quantity >0)
+            {
+                BookService.updateItemQuantity(sc,id,quantity);
+            }
+
+        Map<String,Object> result = new HashMap<>();
+        result.put("bookNumber",sc.getBookNumber());
+        result.put("totalMoney",sc.getTotalMoney());
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(result);
+        resp.setContentType("text/javascript");
+        resp.getWriter().print(jsonStr);
+
+
+    }
+    protected void emptyCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+         ShoppingCart sc =  BookStoreWebUtil.getShoppingCart(req);
+         BookService.clear(sc);
+         req.getRequestDispatcher("emptyShoppingCart.jsp").forward(req,resp);
+    }
+    protected void remove(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        String idStr = req.getParameter("id");
+        int id =-1;
+        try {
+            id = Integer.parseInt(idStr);
+        }catch(Exception e){}
+        ShoppingCart sc  = BookStoreWebUtil.getShoppingCart(req);
+        BookService.removeItenFromShoppingCart(sc,id);
+        req.getRequestDispatcher("cart.jsp").forward(req,resp);
 
     }
     protected void addToCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
